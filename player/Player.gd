@@ -5,6 +5,7 @@ export var gravity := 2000
 export var jump_speed := 550
 
 var velocity := Vector2.ZERO
+onready var ball_obj := get_node("../Ball")
 
 func _physics_process(delta: float) -> void:
 	# reset horizontal velocity
