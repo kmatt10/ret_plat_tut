@@ -11,11 +11,16 @@ func _physics_process(delta: float) -> void:
 	# reset horizontal velocity
 	velocity.x = 0
 	
+	#---button actions---
 	# set horizontal velocity
 	if Input.is_action_pressed("move_right"):
 		velocity.x += move_speed
 	if Input.is_action_pressed("move_left"):
 		velocity.x -= move_speed
+	
+	if Input.is_action_just_pressed("throw"):
+		if !ball_obj.is_free():
+			ball_obj.set_free()
 	
 	# apply gravity
 	# player always has downward velocity

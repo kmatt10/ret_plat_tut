@@ -15,6 +15,10 @@ onready var player_obj := get_node("../Player")
 func is_free():
 	return ball_state == BallState.FREE
 
+func set_free():
+	velocity = (Vector2.UP + Vector2.RIGHT).normalized()
+	ball_state = BallState.FREE
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -35,3 +39,8 @@ func _process(delta):
 	if !is_free():
 		position.x = player_obj.position.x + 20
 		position.y = player_obj.position.y - 10
+
+
+func _on_CatchArea_body_entered(body):
+	if body.name == "Player":
+		ball_state = BallState.CAUGHT
