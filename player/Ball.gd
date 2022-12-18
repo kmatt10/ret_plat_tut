@@ -11,13 +11,22 @@ export (BallState) var ball_state = BallState.FREE
 
 onready var velocity := (Vector2.UP + Vector2.RIGHT).normalized()
 onready var player_obj := get_node("../Player")
+onready var ball_hitbox := get_node("CollisionShape2D")
+onready var catch_hitbox := get_node("CatchArea/CollisionShape2D")
 
 func is_free():
 	return ball_state == BallState.FREE
 
 func set_free():
-	velocity = (Vector2.UP + Vector2.RIGHT).normalized()
+	velocity = player_obj.get_aim()
+	ball_hitbox.set_deferred("disabled",false)
+	catch_hitbox.set_deferred("disabled",false)
 	ball_state = BallState.FREE
+	
+func set_caught():
+	ball_hitbox.set_deferred("disabled",true)
+	catch_hitbox.set_deferred("disabled",true)
+	ball_state = BallState.CAUGHT
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -30,17 +39,15 @@ func _physics_process(delta):
 		var collision = move_and_collide(velocity * delta * ball_speed)
 		if collision:
 			if collision.collider.name == "Player":
-				ball_state = BallState.CAUGHT
+				set_caught()
 			velocity = velocity.bounce(collision.normal)
-			#if collision.collider.has_method("hit"):
-			#	collision.collider.hit()
 			
-func _process(delta):
+func _process(_delta):
 	if !is_free():
-		position.x = player_obj.position.x + 20
-		position.y = player_obj.position.y - 10
+		position.x = player_obj.position.x
+		position.y = player_obj.position.y - 20
 
 
 func _on_CatchArea_body_entered(body):
 	if body.name == "Player":
-		ball_state = BallState.CAUGHT
+		set_caught()

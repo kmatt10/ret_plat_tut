@@ -5,7 +5,11 @@ export var gravity := 2000
 export var jump_speed := 550
 
 var velocity := Vector2.ZERO
+var launch_vec := (Vector2.UP + Vector2.RIGHT).normalized()
 onready var ball_obj := get_node("../Ball")
+
+func get_aim():
+	return launch_vec.normalized()
 
 func _physics_process(delta: float) -> void:
 	# reset horizontal velocity
@@ -17,6 +21,13 @@ func _physics_process(delta: float) -> void:
 		velocity.x += move_speed
 	if Input.is_action_pressed("move_left"):
 		velocity.x -= move_speed
+	# set launch angle
+	if Input.is_action_pressed("aim_right"):
+		launch_vec = (launch_vec + Vector2.RIGHT*2).normalized()
+	if Input.is_action_pressed("aim_up"):
+		launch_vec = (launch_vec + Vector2.UP).normalized()
+	if Input.is_action_pressed("aim_left"):
+		launch_vec = (launch_vec + Vector2.LEFT*2).normalized()
 	
 	if Input.is_action_just_pressed("throw"):
 		if !ball_obj.is_free():
