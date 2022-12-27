@@ -9,10 +9,6 @@ var launch_vec := (Vector2.UP + Vector2.RIGHT).normalized()
 onready var ball_obj := get_node("../Ball")
 onready var line_obj := get_node("Aim")
 
-func _ready():
-	line_obj.add_point(Vector2(position.x,position.y),0)
-	line_obj.add_point(Vector2(position.x,position.y),1)
-
 func get_aim():
 	return launch_vec.normalized()
 
@@ -57,6 +53,7 @@ func _process(delta: float) -> void:
 	
 	# mouse aiming
 	var ball_sprite = ball_obj.get_node("Sprite")
+	var ball_line = ball_obj.get_node("Line2D")
 	var mouse_coords = ball_sprite.get_local_mouse_position()
 	var sprite_coords = Vector2(ball_sprite.position.x, ball_sprite.position.y - 20)
 	launch_vec = Vector2(mouse_coords.x - sprite_coords.x, mouse_coords.y - sprite_coords.y).normalized()
@@ -64,6 +61,7 @@ func _process(delta: float) -> void:
 	#set debug line
 	line_obj.set_point_position(0,sprite_coords)
 	line_obj.set_point_position(1,mouse_coords)
+	
 	
 	if ball_obj.is_free():
 		line_obj.visible = false

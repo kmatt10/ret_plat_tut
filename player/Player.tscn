@@ -77,5 +77,7 @@ drag_margin_bottom = 0.38
 editor_draw_drag_margin = true
 
 [node name="Aim" type="Line2D" parent="."]
+visible = false
+points = PoolVector2Array( 0, 0, 30, 0 )
 width = 3.0
 default_color = Color( 0.00784314, 0.894118, 0.984314, 1 )
