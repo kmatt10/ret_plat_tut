@@ -7,6 +7,11 @@ export var jump_speed := 550
 var velocity := Vector2.ZERO
 var launch_vec := (Vector2.UP + Vector2.RIGHT).normalized()
 onready var ball_obj := get_node("../Ball")
+onready var line_obj := get_node("Aim")
+
+func _ready():
+	line_obj.add_point(Vector2(position.x,position.y),0)
+	line_obj.add_point(Vector2(position.x,position.y),1)
 
 func get_aim():
 	return launch_vec.normalized()
@@ -32,6 +37,8 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("throw"):
 		if !ball_obj.is_free():
 			ball_obj.set_free()
+		else:
+			ball_obj.set_caught()
 	
 	# apply gravity
 	# player always has downward velocity
@@ -47,6 +54,21 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	change_animation()
+	
+	# mouse aiming
+	var ball_sprite = ball_obj.get_node("Sprite")
+	var mouse_coords = ball_sprite.get_local_mouse_position()
+	var sprite_coords = Vector2(ball_sprite.position.x, ball_sprite.position.y - 20)
+	launch_vec = Vector2(mouse_coords.x - sprite_coords.x, mouse_coords.y - sprite_coords.y).normalized()
+	
+	#set debug line
+	line_obj.set_point_position(0,sprite_coords)
+	line_obj.set_point_position(1,mouse_coords)
+	
+	if ball_obj.is_free():
+		line_obj.visible = false
+	else:
+		line_obj.visible = true
 
 func change_animation():
 	#face left or right
