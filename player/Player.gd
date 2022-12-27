@@ -1,7 +1,10 @@
 extends KinematicBody2D
 
 export var move_speed := 100
+export var MAX_SPEED := 300
+export var acceleration := 100
 export var gravity := 2000
+export var friction := .2
 export var jump_speed := 550
 
 var velocity := Vector2.ZERO
@@ -13,15 +16,16 @@ func get_aim():
 	return launch_vec.normalized()
 
 func _physics_process(delta: float) -> void:
-	# reset horizontal velocity
-	velocity.x = 0
+	#TODO: Add momentum to movement
 	
 	#---button actions---
 	# set horizontal velocity
 	if Input.is_action_pressed("move_right"):
-		velocity.x += move_speed
+		if velocity.x < MAX_SPEED:
+			velocity.x += acceleration
 	if Input.is_action_pressed("move_left"):
-		velocity.x -= move_speed
+		if velocity.x > -MAX_SPEED:
+			velocity.x -= acceleration
 	# set launch angle
 	if Input.is_action_pressed("aim_right"):
 		launch_vec = (launch_vec + Vector2.RIGHT*2).normalized()
@@ -40,6 +44,10 @@ func _physics_process(delta: float) -> void:
 	# player always has downward velocity
 	velocity.y += gravity * delta
 	
+	# apply friction
+	if is_on_floor():
+		velocity.x = lerp(velocity.x,0,friction)
+	
 	# jump will happen on the next frame
 	if Input.is_action_just_pressed("jump"):
 		if is_on_floor():
@@ -47,6 +55,7 @@ func _physics_process(delta: float) -> void:
 	
 	# actually move the player
 	velocity = move_and_slide(velocity, Vector2.UP)
+	print(velocity)
 
 func _process(delta: float) -> void:
 	change_animation()
