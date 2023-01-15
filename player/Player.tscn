@@ -54,6 +54,8 @@ extents = Vector2( 4, 7 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 1 )
+acceleration = 70
+friction = 0.3
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 8 )
@@ -74,3 +76,9 @@ drag_margin_top = 0.25
 drag_margin_right = 0.4
 drag_margin_bottom = 0.38
 editor_draw_drag_margin = true
+
+[node name="Aim" type="Line2D" parent="."]
+visible = false
+points = PoolVector2Array( 0, 0, 30, 0 )
+width = 3.0
+default_color = Color( 0.00784314, 0.894118, 0.984314, 1 )
