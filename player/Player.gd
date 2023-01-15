@@ -55,7 +55,6 @@ func _physics_process(delta: float) -> void:
 	
 	# actually move the player
 	velocity = move_and_slide(velocity, Vector2.UP)
-	print(velocity)
 
 func _process(delta: float) -> void:
 	change_animation()
