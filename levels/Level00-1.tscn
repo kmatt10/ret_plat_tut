@@ -5,7 +5,7 @@
 [ext_resource path="res://pickups/Coin.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ui/HUD.tscn" type="PackedScene" id=4]
 [ext_resource path="res://player/Ball.tscn" type="PackedScene" id=5]
-[ext_resource path="res://levels/Level00.gd" type="Script" id=6]
+[ext_resource path="res://levels/Level00-1.gd" type="Script" id=6]
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -213,7 +213,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 } ]
 0/z_index = 0
 
-[node name="Level00" type="Node2D"]
+[node name="Level00-1" type="Node2D"]
 script = ExtResource( 6 )
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -226,19 +226,13 @@ tile_data = PoolIntArray( -131075, 0, 0, -131074, 0, 3, -131073, 0, 1, -196608, 
 position = Vector2( 176, 216 )
 
 [node name="Coin" parent="." instance=ExtResource( 3 )]
-position = Vector2( 264, 136 )
+position = Vector2( 168, 16 )
 
 [node name="Coin2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 224, 168 )
+position = Vector2( 304, 208 )
 
 [node name="Coin3" parent="." instance=ExtResource( 3 )]
-position = Vector2( 304, 104 )
-
-[node name="Coin4" parent="." instance=ExtResource( 3 )]
-position = Vector2( 264, 56 )
-
-[node name="Coin5" parent="." instance=ExtResource( 3 )]
-position = Vector2( 224, 32 )
+position = Vector2( 48, 184 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -250,14 +244,11 @@ margin_left = 80.16
 margin_top = 55.89
 margin_right = -103.84
 margin_bottom = -46.0
-next_level = "00-1"
+score_limit = 3
+next_level = "00-2"
 
 [node name="Ball" parent="." instance=ExtResource( 5 )]
 position = Vector2( 112, 136 )
 scale = Vector2( 0.25, 0.25 )
 ball_speed = 100
 ball_state = 1
-
-[node name="PlaceHelper" type="Line2D" parent="."]
-visible = false
-points = PoolVector2Array( 176, 216, 320, 96, 168, 0 )

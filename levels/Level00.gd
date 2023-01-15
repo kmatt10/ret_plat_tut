@@ -1,16 +1,9 @@
 extends Node2D
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+onready var tip_text = $CanvasLayer/HUD/MarginContainer/HBoxContainer/LevelTips
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+	tip_text.text = """Throw the ball to collect the coins
+	Try to catch them all in as few throws as possible"""

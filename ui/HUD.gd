@@ -4,6 +4,7 @@ onready var label = $MarginContainer/VBoxContainer/HBoxContainer/ScoreLabel
 onready var complete = $MarginContainer/VBoxContainer/HBoxContainer2/CompleteLabel
 onready var throws = $MarginContainer/VBoxContainer/HBoxContainer3/ThrowCount
 onready var instruction = $MarginContainer/VBoxContainer/HBoxContainer4/VBoxContainer/Instruction
+onready var level_tips = $MarginContainer/HBoxContainer/LevelTips
 
 var score = 0
 export var score_limit = 5
@@ -28,6 +29,7 @@ func _exit_tree() -> void:
 func _process(delta):
 	if Input.is_action_just_pressed("confirm"):
 		if score_reached:
+			level_tips.text = ""
 			get_tree().change_scene("res://levels/Level" + next_level + ".tscn")
 
 func _on_score_changed(value):

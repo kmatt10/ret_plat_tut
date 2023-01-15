@@ -74,3 +74,18 @@ text = "
                           Press Enter to continue"
 align = 1
 valign = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+margin_right = 460.0
+margin_bottom = 250.0
+
+[node name="LevelTips" type="Label" parent="MarginContainer/HBoxContainer"]
+margin_top = 118.0
+margin_right = 46.0
+margin_bottom = 132.0
+size_flags_horizontal = 0
+text = "tip text"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer"]
+margin_right = 460.0
+margin_bottom = 250.0
