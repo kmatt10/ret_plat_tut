@@ -232,6 +232,8 @@ position = Vector2( 408, 176 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource( 4 )]
+score_limit = 2
+next_level = "02"
 
 [node name="Ball" parent="." instance=ExtResource( 5 )]
 position = Vector2( 312, 152 )

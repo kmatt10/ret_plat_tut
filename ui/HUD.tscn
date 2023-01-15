@@ -29,3 +29,25 @@ margin_right = 84.0
 margin_bottom = 16.0
 custom_fonts/font = ExtResource( 1 )
 text = "Hello world!"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 20.0
+margin_right = 460.0
+margin_bottom = 36.0
+
+[node name="ThrowCount" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
+margin_right = 66.0
+margin_bottom = 16.0
+custom_fonts/font = ExtResource( 1 )
+text = "Throws: "
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 40.0
+margin_right = 460.0
+margin_bottom = 56.0
+
+[node name="CompleteLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+margin_right = 123.0
+margin_bottom = 16.0
+custom_fonts/font = ExtResource( 1 )
+text = "Level Complete!"

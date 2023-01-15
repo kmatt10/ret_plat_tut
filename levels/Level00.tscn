@@ -243,11 +243,13 @@ position = Vector2( 224, 32 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource( 4 )]
-visible = false
-margin_left = 16.0
-margin_top = -8.0
-margin_right = 16.0
-margin_bottom = -8.0
+anchor_left = -0.167
+anchor_top = -0.207
+anchor_right = 0.883
+margin_left = 80.16
+margin_top = 55.89
+margin_right = -103.84
+margin_bottom = -46.0
 
 [node name="Ball" parent="." instance=ExtResource( 5 )]
 position = Vector2( 112, 136 )

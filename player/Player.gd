@@ -37,6 +37,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("throw"):
 		if !ball_obj.is_free():
 			ball_obj.set_free()
+			Events.emit_signal("ball_thrown")
 		else:
 			ball_obj.set_caught()
 	
