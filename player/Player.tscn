@@ -67,18 +67,21 @@ position = Vector2( -1, 1 )
 shape = SubResource( 9 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2( 0, -80 )
 current = true
-zoom = Vector2( 1.5, 1.5 )
+zoom = Vector2( 1.6, 1.6 )
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
 drag_margin_left = 0.4
-drag_margin_top = 0.25
+drag_margin_top = 0.4
 drag_margin_right = 0.4
-drag_margin_bottom = 0.38
+drag_margin_bottom = 0.48
 editor_draw_drag_margin = true
 
-[node name="Aim" type="Line2D" parent="."]
+[node name="RayCast2D" type="RayCast2D" parent="."]
 visible = false
-points = PoolVector2Array( 0, 0, 30, 0 )
-width = 3.0
-default_color = Color( 0.00784314, 0.894118, 0.984314, 1 )
+modulate = Color( 0.972549, 0.0117647, 0.0117647, 1 )
+self_modulate = Color( 0.952941, 0.0588235, 0.0588235, 1 )
+enabled = true
+cast_to = Vector2( 68, -25 )
+collide_with_bodies = false

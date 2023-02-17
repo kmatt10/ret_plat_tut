@@ -10,7 +10,6 @@ export var jump_speed := 550
 var velocity := Vector2.ZERO
 var launch_vec := (Vector2.UP + Vector2.RIGHT).normalized()
 onready var ball_obj := get_node("../Ball")
-onready var line_obj := get_node("Aim")
 
 func get_aim():
 	return launch_vec.normalized()
@@ -37,6 +36,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("throw"):
 		if !ball_obj.is_free():
 			ball_obj.set_free()
+			Events.emit_signal("ball_thrown")
 		else:
 			ball_obj.set_caught()
 	
@@ -66,15 +66,6 @@ func _process(delta: float) -> void:
 	var sprite_coords = Vector2(ball_sprite.position.x, ball_sprite.position.y - 20)
 	launch_vec = Vector2(mouse_coords.x - sprite_coords.x, mouse_coords.y - sprite_coords.y).normalized()
 	
-	#set debug line
-	line_obj.set_point_position(0,sprite_coords)
-	line_obj.set_point_position(1,mouse_coords)
-	
-	
-	if ball_obj.is_free():
-		line_obj.visible = false
-	else:
-		line_obj.visible = true
 
 func change_animation():
 	#face left or right
