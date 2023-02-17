@@ -31,6 +31,9 @@ func _process(delta):
 		if score_reached:
 			level_tips.text = ""
 			get_tree().change_scene("res://levels/Level" + next_level + ".tscn")
+			
+	if Input.is_action_just_pressed("Restart"):
+		get_tree().reload_current_scene()
 
 func _on_score_changed(value):
 	score += value

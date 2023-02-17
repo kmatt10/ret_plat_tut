@@ -7,7 +7,7 @@ extends KinematicBody2D
 export var ball_speed = 20
 enum BallState  { FREE, CAUGHT }
 
-export (BallState) var ball_state = BallState.FREE
+export (BallState) var ball_state = BallState.CAUGHT
 
 onready var velocity := (Vector2.UP + Vector2.RIGHT).normalized()
 onready var player_obj := get_node("../Player")
@@ -32,7 +32,7 @@ func set_caught():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	set_caught()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
