@@ -13,6 +13,8 @@ onready var velocity := (Vector2.UP + Vector2.RIGHT).normalized()
 onready var player_obj := get_node("../Player")
 onready var ball_hitbox := get_node("CollisionShape2D")
 onready var catch_hitbox := get_node("CatchArea/CollisionShape2D")
+onready var ball_line := get_node("Line2D")
+onready var sprite_obj := get_node("Sprite")
 
 func is_free():
 	return ball_state == BallState.FREE
@@ -46,6 +48,17 @@ func _process(_delta):
 	if !is_free():
 		position.x = player_obj.position.x
 		position.y = player_obj.position.y - 20
+		
+		var mouse_coords = get_local_mouse_position()
+		
+		ball_line.set_point_position(0,sprite_obj.position)
+		ball_line.set_point_position(1,mouse_coords)
+	
+	
+	if is_free():
+		ball_line.visible = false
+	else:
+		ball_line.visible = true
 
 
 func _on_CatchArea_body_entered(body):
