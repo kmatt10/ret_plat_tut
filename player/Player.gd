@@ -1,11 +1,11 @@
 extends KinematicBody2D
 
-export var move_speed := 100
-export var MAX_SPEED := 300
-export var acceleration := 100
-export var gravity := 2000
-export var friction := .2
-export var jump_speed := 550
+var move_speed := 100
+var MAX_SPEED := 300
+var acceleration := 70
+var gravity := 2000
+var friction := .2
+var jump_speed := 500
 
 var velocity := Vector2.ZERO
 var launch_vec := (Vector2.UP + Vector2.RIGHT).normalized()
@@ -15,16 +15,20 @@ func get_aim():
 	return launch_vec.normalized()
 
 func _physics_process(delta: float) -> void:
-	#TODO: Add momentum to movement
-	
 	#---button actions---
 	# set horizontal velocity
 	if Input.is_action_pressed("move_right"):
-		if velocity.x < MAX_SPEED:
-			velocity.x += acceleration
+		velocity.x = min( velocity.x + acceleration, MAX_SPEED)
+		#if velocity.x < MAX_SPEED:
+		#	velocity.x += acceleration
 	if Input.is_action_pressed("move_left"):
-		if velocity.x > -MAX_SPEED:
-			velocity.x -= acceleration
+		velocity.x = max(velocity.x - acceleration, -MAX_SPEED)
+		#if velocity.x > -MAX_SPEED:
+		#	velocity.x -= acceleration
+	if Input.is_action_just_released("move_right") or Input.is_action_just_released("move_left"):
+		if !is_on_floor():
+			velocity.x = 0
+
 	# set launch angle
 	if Input.is_action_pressed("aim_right"):
 		launch_vec = (launch_vec + Vector2.RIGHT*2).normalized()
@@ -45,8 +49,9 @@ func _physics_process(delta: float) -> void:
 	velocity.y += gravity * delta
 	
 	# apply friction
-	if is_on_floor():
-		velocity.x = lerp(velocity.x,0,friction)
+	if !Input.is_action_pressed("move_left") or !Input.is_action_pressed("move_right"):
+		if is_on_floor():
+			velocity.x = lerp(velocity.x,0,friction)
 	
 	# jump will happen on the next frame
 	if Input.is_action_just_pressed("jump"):

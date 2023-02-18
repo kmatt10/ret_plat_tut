@@ -4,10 +4,12 @@ extends KinematicBody2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-export var ball_speed = 20
+var ball_speed = 200
+var in_collision = false
 enum BallState  { FREE, CAUGHT }
 
 export (BallState) var ball_state = BallState.CAUGHT
+var can_collide_w_player = false
 
 onready var velocity := (Vector2.UP + Vector2.RIGHT).normalized()
 onready var player_obj := get_node("../Player")
@@ -20,10 +22,14 @@ func is_free():
 	return ball_state == BallState.FREE
 
 func set_free():
-	velocity = player_obj.get_aim()
-	ball_hitbox.set_deferred("disabled",false)
-	catch_hitbox.set_deferred("disabled",false)
-	ball_state = BallState.FREE
+	if in_collision:
+		pass
+	else:
+		velocity = player_obj.get_aim()
+		ball_hitbox.set_deferred("disabled",false)
+		catch_hitbox.set_deferred("disabled",false)
+		can_collide_w_player = false
+		ball_state = BallState.FREE
 	
 func set_caught():
 	ball_hitbox.set_deferred("disabled",true)
@@ -41,7 +47,12 @@ func _physics_process(delta):
 		var collision = move_and_collide(velocity * delta * ball_speed)
 		if collision:
 			if collision.collider.name == "Player":
-				set_caught()
+				if can_collide_w_player:
+					set_caught()
+			elif collision.collider.name == "Coin":
+				pass
+			else:
+				can_collide_w_player = true
 			velocity = velocity.bounce(collision.normal)
 			
 func _process(_delta):
@@ -62,5 +73,15 @@ func _process(_delta):
 
 
 func _on_CatchArea_body_entered(body):
-	if body.name == "Player":
+	if body.name == "Player" and can_collide_w_player:
 		set_caught()
+
+func _on_platform_interior_area_entered(body):
+	print(body.name + "ENTER")
+	if body.name == "Ball":
+		in_collision = true
+
+func _on_platform_interior_area_exited(body):
+	print(body.name + "EXIT")
+	if body.name == "Ball":
+		in_collision = false
