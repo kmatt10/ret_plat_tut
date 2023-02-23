@@ -5,7 +5,6 @@ extends KinematicBody2D
 # var a = 2
 # var b = "text"
 var ball_speed = 200
-var in_collision = false
 enum BallState  { FREE, CAUGHT }
 
 export (BallState) var ball_state = BallState.CAUGHT
@@ -22,9 +21,6 @@ func is_free():
 	return ball_state == BallState.FREE
 
 func set_free():
-	if in_collision:
-		pass
-	else:
 		velocity = player_obj.get_aim()
 		ball_hitbox.set_deferred("disabled",false)
 		catch_hitbox.set_deferred("disabled",false)
@@ -76,12 +72,3 @@ func _on_CatchArea_body_entered(body):
 	if body.name == "Player" and can_collide_w_player:
 		set_caught()
 
-func _on_platform_interior_area_entered(body):
-	print(body.name + "ENTER")
-	if body.name == "Ball":
-		in_collision = true
-
-func _on_platform_interior_area_exited(body):
-	print(body.name + "EXIT")
-	if body.name == "Ball":
-		in_collision = false
