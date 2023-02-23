@@ -59,23 +59,12 @@ acceleration = 70
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 8 )
 animation = "idle"
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -1, 1 )
 shape = SubResource( 9 )
-
-[node name="Camera2D" type="Camera2D" parent="."]
-offset = Vector2( 0, -80 )
-current = true
-zoom = Vector2( 0.8, 0.8 )
-drag_margin_h_enabled = true
-drag_margin_v_enabled = true
-drag_margin_left = 0.4
-drag_margin_top = 0.4
-drag_margin_right = 0.4
-drag_margin_bottom = 0.48
-editor_draw_drag_margin = true
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 visible = false

@@ -5,7 +5,7 @@
 [ext_resource path="res://pickups/Coin.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ui/HUD.tscn" type="PackedScene" id=4]
 [ext_resource path="res://player/Ball.tscn" type="PackedScene" id=5]
-[ext_resource path="res://levels/Level00-1.gd" type="Script" id=6]
+[ext_resource path="res://levels/Level00-2.gd" type="Script" id=6]
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -249,3 +249,7 @@ next_level = "00-2"
 position = Vector2( 220, 118 )
 scale = Vector2( 0.25, 0.25 )
 ball_speed = 125
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 172, 112 )
+current = true

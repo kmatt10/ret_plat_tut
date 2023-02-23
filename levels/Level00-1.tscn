@@ -250,5 +250,8 @@ next_level = "00-2"
 [node name="Ball" parent="." instance=ExtResource( 5 )]
 position = Vector2( 112, 136 )
 scale = Vector2( 0.25, 0.25 )
-ball_speed = 100
-ball_state = 1
+ball_speed = 200
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 168, 112 )
+current = true
