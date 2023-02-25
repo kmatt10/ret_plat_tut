@@ -42,7 +42,10 @@ func _physics_process(delta: float) -> void:
 			ball_obj.set_free()
 			Events.emit_signal("ball_thrown")
 		else:
-			ball_obj.set_caught()
+			ball_obj.flip_velocity()
+			
+	if Input.is_action_just_pressed("catch"):
+		ball_obj.set_caught()
 	
 	# apply gravity
 	# player always has downward velocity

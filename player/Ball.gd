@@ -5,6 +5,7 @@ extends KinematicBody2D
 # var a = 2
 # var b = "text"
 var ball_speed = 200
+var can_flip = false
 enum BallState  { FREE, CAUGHT }
 
 export (BallState) var ball_state = BallState.CAUGHT
@@ -30,7 +31,13 @@ func set_free():
 func set_caught():
 	ball_hitbox.set_deferred("disabled",true)
 	catch_hitbox.set_deferred("disabled",true)
+	can_flip = false
 	ball_state = BallState.CAUGHT
+
+func flip_velocity():
+	if can_flip:
+		velocity.x = velocity.x * -1
+		can_flip = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -47,6 +54,9 @@ func _physics_process(delta):
 					set_caught()
 			elif collision.collider.name == "Coin":
 				pass
+			elif collision.collider.name == "TileMap":
+				can_flip = true
+				can_collide_w_player = true
 			else:
 				can_collide_w_player = true
 			velocity = velocity.bounce(collision.normal)

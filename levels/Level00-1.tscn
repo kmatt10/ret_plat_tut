@@ -226,22 +226,22 @@ tile_data = PoolIntArray( -131075, 0, 0, -131074, 0, 3, -131073, 0, 1, -196608, 
 position = Vector2( 176, 216 )
 
 [node name="Coin" parent="." instance=ExtResource( 3 )]
-position = Vector2( 216, 208 )
+position = Vector2( 216, 200 )
 
 [node name="Coin2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 256, 208 )
+position = Vector2( 256, 200 )
 
 [node name="Coin6" parent="." instance=ExtResource( 3 )]
-position = Vector2( 304, 208 )
+position = Vector2( 304, 200 )
 
 [node name="Coin3" parent="." instance=ExtResource( 3 )]
-position = Vector2( 16, 208 )
+position = Vector2( 16, 200 )
 
 [node name="Coin4" parent="." instance=ExtResource( 3 )]
-position = Vector2( 72, 208 )
+position = Vector2( 72, 200 )
 
 [node name="Coin5" parent="." instance=ExtResource( 3 )]
-position = Vector2( 128, 208 )
+position = Vector2( 128, 200 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 visible = false
