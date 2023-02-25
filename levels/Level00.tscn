@@ -255,7 +255,6 @@ next_level = "00-1"
 [node name="Ball" parent="." instance=ExtResource( 5 )]
 position = Vector2( 112, 136 )
 scale = Vector2( 0.25, 0.25 )
-ball_speed = 200
 
 [node name="PlaceHelper" type="Line2D" parent="."]
 visible = false
