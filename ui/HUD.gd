@@ -11,6 +11,7 @@ export var score_limit = 5
 var throw_count = 0
 export var next_level = "01"
 var score_reached = false
+export var final_level = false
 
 func _ready() -> void:
 	label.text = str(score) + "/" + str(score_limit)
@@ -28,9 +29,11 @@ func _exit_tree() -> void:
 	
 func _process(delta):
 	if Input.is_action_just_pressed("confirm"):
-		if score_reached:
+		if score_reached && !final_level:
 			level_tips.text = ""
 			get_tree().change_scene("res://levels/Level" + next_level + ".tscn")
+		elif final_level:
+			level_tips.text = "That's all for now! Thanks for playing"
 			
 	if Input.is_action_just_pressed("Restart"):
 		get_tree().reload_current_scene()

@@ -4,10 +4,12 @@ extends KinematicBody2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-export var ball_speed = 20
+var ball_speed = 150
+var can_flip = false
 enum BallState  { FREE, CAUGHT }
 
 export (BallState) var ball_state = BallState.CAUGHT
+var can_collide_w_player = false
 
 onready var velocity := (Vector2.UP + Vector2.RIGHT).normalized()
 onready var player_obj := get_node("../Player")
@@ -20,15 +22,22 @@ func is_free():
 	return ball_state == BallState.FREE
 
 func set_free():
-	velocity = player_obj.get_aim()
-	ball_hitbox.set_deferred("disabled",false)
-	catch_hitbox.set_deferred("disabled",false)
-	ball_state = BallState.FREE
+		velocity = player_obj.get_aim()
+		ball_hitbox.set_deferred("disabled",false)
+		catch_hitbox.set_deferred("disabled",false)
+		can_collide_w_player = false
+		ball_state = BallState.FREE
 	
 func set_caught():
 	ball_hitbox.set_deferred("disabled",true)
 	catch_hitbox.set_deferred("disabled",true)
+	can_flip = false
 	ball_state = BallState.CAUGHT
+
+func flip_velocity():
+	if can_flip:
+		velocity.x = velocity.x * -1
+		can_flip = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -41,7 +50,15 @@ func _physics_process(delta):
 		var collision = move_and_collide(velocity * delta * ball_speed)
 		if collision:
 			if collision.collider.name == "Player":
-				set_caught()
+				if can_collide_w_player:
+					set_caught()
+			elif collision.collider.name == "Coin":
+				pass
+			elif collision.collider.name == "TileMap":
+				can_flip = true
+				can_collide_w_player = true
+			else:
+				can_collide_w_player = true
 			velocity = velocity.bounce(collision.normal)
 			
 func _process(_delta):
@@ -62,5 +79,6 @@ func _process(_delta):
 
 
 func _on_CatchArea_body_entered(body):
-	if body.name == "Player":
+	if body.name == "Player" and can_collide_w_player:
 		set_caught()
+
