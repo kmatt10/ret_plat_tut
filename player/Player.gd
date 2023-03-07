@@ -75,7 +75,7 @@ func _process(delta: float) -> void:
 	launch_vec = Vector2(mouse_coords.x - sprite_coords.x, mouse_coords.y - sprite_coords.y).normalized()
 	
 
-func change_animation():
+func change_animation() -> void:
 	#face left or right
 	if velocity.x > 0:
 		$AnimatedSprite.flip_h = false
